@@ -6,3 +6,7 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.top-buffer {
+  margin-top:20px !important;
+}
