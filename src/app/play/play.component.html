@@ -3,7 +3,12 @@
     <div class="row">
       <div class="col-12 text-center">
         <div class="jumbotron">
-          <h1 class="m-0 display-4">{{ currentPlayer?.name}}'s Turn</h1>
+          <h1 class="m-0 display-4" *ngIf="!gameFinished">{{ currentPlayer?.name}}'s Turn</h1>
+          <h1 class="m-0 display-4" *ngIf="gameFinished">{{ currentPlayer?.name}} Wins!</h1>
+          <span *ngIf="!gameFinished">Click the dice to roll</span>
+          <button type="button" class="btn btn-outline-primary"
+                  (click)="startGame()" *ngIf="gameFinished">Play Again</button>
+          <a routerLink="/leaderboard" *ngIf="gameFinished">Leader Board</a>
         </div>
       </div>
     </div>
@@ -29,7 +34,7 @@
     <div class="row top-buffer">
       <div class="col-6">
         <img src="assets/dice.png" class="img-thumbnail float-right" style="width:80px"
-             *ngIf="currentPlayer.name === player1.name"
+             *ngIf="!gameFinished && currentPlayer.name === player1.name"
              (click)="rollDice()"
         >
         <h2 class="card-title">Score:</h2>
@@ -37,7 +42,7 @@
       </div>
       <div class="col-6">
         <img src="assets/dice.png" class="img-thumbnail float-right" style="width:80px"
-             *ngIf="currentPlayer.name === player2.name"
+             *ngIf="!gameFinished && currentPlayer.name === player2.name"
              (click)="rollDice()"
         >
         <h2 class="card-title">Score:</h2>

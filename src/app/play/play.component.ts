@@ -12,6 +12,7 @@ export class PlayComponent implements OnInit {
   player1: Player;
   player2: Player;
 
+  gameFinished: boolean;
   currentPlayer: Player;
   diceRoll = 0;
 
@@ -22,17 +23,30 @@ export class PlayComponent implements OnInit {
     this.player2 = this.gameService.player2 || {name: 'Ashiana' } as Player;
 
     console.log('PlayComponent', this.player1, this.player2);
+    this.startGame();
+  }
+
+
+  startGame() {
     this.player1.score = 0;
     this.player2.score = 0;
     this.currentPlayer = this.player1;
+    this.gameFinished = false;
   }
 
   ngOnInit() {
   }
 
   rollDice() {
-    this.diceRoll = 2;
+    this.diceRoll = Math.floor(Math.random() * 6) + 1 ;
     this.currentPlayer.score = this.currentPlayer.score + this.diceRoll;
+
+    if (this.currentPlayer.score > 20) {
+      this.gameFinished = true;
+      this.gameService.updateLeaderBoard(this.currentPlayer);
+      return;
+    }
+
     if (this.currentPlayer.name === this.player1.name) {
       this.currentPlayer = this.player2;
     } else {

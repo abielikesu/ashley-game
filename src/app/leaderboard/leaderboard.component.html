@@ -1,3 +1,30 @@
-<p>
-  leaderboard works!
-</p>
+<div class="row h-100 align-items-center">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 text-center">
+        <div class="jumbotron">
+          <a class="m-0 display-4">Leader board</a>
+        </div>
+      </div>
+    </div>
+    <div class="row ">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Score</th>
+        </tr>
+        </thead>
+        <tbody >
+        <tr *ngFor="let player of leaderBoard">
+          <td>{{ player.name}}</td>
+          <td>{{ player.score}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
