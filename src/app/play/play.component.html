@@ -6,9 +6,14 @@
           <h1 class="m-0 display-4" *ngIf="!gameFinished">{{ currentPlayer?.name}}'s Turn</h1>
           <h1 class="m-0 display-4" *ngIf="gameFinished">{{ currentPlayer?.name}} Wins!</h1>
           <span *ngIf="!gameFinished">Click the dice to roll</span>
-          <button type="button" class="btn btn-outline-primary"
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary"
                   (click)="startGame()" *ngIf="gameFinished">Play Again</button>
-          <a routerLink="/leaderboard" *ngIf="gameFinished">Leader Board</a>
+          </div>
+          <div class="btn-group">
+            <a routerLink="/leaderboard"  class="btn btn-outline-secondary"
+                  *ngIf="gameFinished">Leader Board</a>
+          </div>
         </div>
       </div>
     </div>
