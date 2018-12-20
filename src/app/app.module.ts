@@ -8,6 +8,8 @@ import { PlayComponent } from './play/play.component';
 import { ScoreComponent } from './score/score.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { SelectplayerComponent } from './selectplayer/selectplayer.component';
+import {FormsModule} from '@angular/forms';
+import {GameService} from './game.service';
 
 @NgModule({
   declarations: [
@@ -20,9 +22,12 @@ import { SelectplayerComponent } from './selectplayer/selectplayer.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    GameService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

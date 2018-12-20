@@ -3,7 +3,8 @@
     <div class="row">
       <div class="col-12 text-center">
         <div class="jumbotron">
-          <h1 class="m-0 display-4">Join Game</h1>
+          <h1 class="m-0 display-4" *ngIf="!(player1 && player2)">Join Game</h1>
+          <a class="m-0 display-4" routerLink="/play" *ngIf="(player1 && player2)">Start Game</a>
         </div>
       </div>
     </div>
@@ -13,25 +14,19 @@
           <div class="card  bg-success" style="width:400px">
             <img class="card-img-top" src="assets/player1.png" alt="Player One Image">
             <div class="card-body text-center">
-              <h4 class="card-title">Player One</h4>
-              <a routerLink="/selectplayer" class="btn btn-primary">Select Character</a>
+              <h4 class="card-title">{{ player1 ? player1.name : 'Player One' }}</h4>
+              <a routerLink="/selectplayer/1" class="btn btn-primary">Select Character</a>
             </div>
           </div>
 
           <div class="card bg-info" style="width:400px">
             <img class="card-img-top" src="assets/player2.png" alt="Player Two Image">
             <div class="card-body text-center">
-              <h4 class="card-title">Player Two</h4>
-              <a routerLink="/selectplayer" class="btn btn-primary">Select Character</a>
+              <h4 class="card-title">{{ player2 ? player2.name : 'Player Two' }}</h4>
+              <a routerLink="/selectplayer/2" class="btn btn-primary">Select Character</a>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row top-buffer">
-      <div class="col-12 text-center">
-        <button  routerLink="/play" type="button" class="btn btn-primary btn-lg" disabled>Start</button>
-        <button  routerLink="/play" type="button" class="btn btn-primary btn-lg active">Start</button>
       </div>
     </div>
   </div>

@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'play', component: PlayComponent },
   { path: 'score', component: ScoreComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
-  { path: 'selectplayer', component: SelectplayerComponent },
+  { path: 'selectplayer/:playerNumber', component: SelectplayerComponent },
+  { path: '', redirectTo: '/start', pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {GameService} from '../game.service';
+import {Player} from '../player';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-selectplayer',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SelectplayerComponent implements OnInit {
 
-  constructor() { }
+  playerNumber: string;
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private gameService: GameService,
+  ) {
+  }
 
   ngOnInit() {
+    this.playerNumber = this.route.snapshot.paramMap.get('playerNumber');
+  }
+
+  submitSelectedPlayer(value: Player) {
+    this.gameService.selectPlayer(this.playerNumber, value);
+    // Navigate to the new AppModel
+    this.router.navigate(['/start'], {});
   }
 
 }
