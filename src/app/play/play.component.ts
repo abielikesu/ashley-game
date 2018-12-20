@@ -14,7 +14,10 @@ export class PlayComponent implements OnInit {
 
   gameFinished: boolean;
   currentPlayer: Player;
-  diceRoll = 0;
+  numDice: number;
+  dice1Roll = 0;
+  dice2Roll = 0;
+  turn = 0;
 
   constructor(
     private gameService: GameService,
@@ -32,25 +35,64 @@ export class PlayComponent implements OnInit {
     this.player2.score = 0;
     this.currentPlayer = this.player1;
     this.gameFinished = false;
+    this.numDice = 2;
+    this.turn = 1;
   }
 
   ngOnInit() {
   }
 
   rollDice() {
-    this.diceRoll = Math.floor(Math.random() * 6) + 1 ;
-    this.currentPlayer.score = this.currentPlayer.score + this.diceRoll;
+    this.dice1Roll = Math.floor(Math.random() * 6) + 1 ;
+    this.dice2Roll = 0;
 
-    if (this.currentPlayer.score > 20) {
-      this.gameFinished = true;
-      this.gameService.updateLeaderBoard(this.currentPlayer);
-      return;
+    if (this.numDice === 2) {
+      this.dice2Roll = Math.floor(Math.random() * 6) + 1 ;
+
+      const totalScore = this.dice1Roll + this.dice2Roll;
+      if (!this.isOdd(totalScore)) {
+        this.currentPlayer.score = this.currentPlayer.score + totalScore + 10;
+      } else {
+        this.currentPlayer.score = this.currentPlayer.score + totalScore - 5;
+        if (this.currentPlayer.score < 0) {
+          this.currentPlayer.score = 0;
+        }
+      }
+      // Roll a double
+      if (this.dice1Roll === this.dice2Roll) {
+        this.numDice = 1;
+        return;
+      }
+    } else {
+      this.currentPlayer.score = this.currentPlayer.score + this.dice1Roll;
+      this.numDice = 2;
+    }
+
+    if (this.currentPlayer.name === this.player2.name && this.turn >= 5) {
+      // Determine if there is a winner
+      if (this.player1.score !== this.player2.score) {
+        this.gameFinished = true;
+
+        if (this.player1.score > this.player2.score) {
+          this.currentPlayer = this.player1;
+        }
+        this.gameService.updateLeaderBoard(this.currentPlayer);
+        return;
+      } else {
+        this.numDice = 1;
+        return;
+      }
     }
 
     if (this.currentPlayer.name === this.player1.name) {
       this.currentPlayer = this.player2;
     } else {
+      this.turn = this.turn + 1;
       this.currentPlayer = this.player1;
     }
+  }
+
+  isOdd(num) {
+    return num % 2;
   }
 }

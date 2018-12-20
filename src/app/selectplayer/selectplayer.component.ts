@@ -11,12 +11,14 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class SelectplayerComponent implements OnInit {
 
   playerNumber: string;
+  result: boolean;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private gameService: GameService,
   ) {
+    this.result = true;
   }
 
   ngOnInit() {
@@ -24,9 +26,11 @@ export class SelectplayerComponent implements OnInit {
   }
 
   submitSelectedPlayer(value: Player) {
-    this.gameService.selectPlayer(this.playerNumber, value);
-    // Navigate to the new AppModel
-    this.router.navigate(['/start'], {});
+    this.result = this.gameService.selectPlayer(this.playerNumber, value);
+    if (this.result) {
+      // Navigate to the new AppModel
+      this.router.navigate(['/start'], {});
+    }
   }
 
 }
